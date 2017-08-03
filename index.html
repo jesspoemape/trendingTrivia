@@ -18,10 +18,10 @@
   </header>
   <article>
     <nav>
-      <a>All Questions</a>
-      <a>Easy</a>
-      <a>Medium</a>
-      <a>Hard</a>
+      <a ng-click='dfilter = ""'>All Questions</a>
+      <a ng-click='dfilter = 1'>Easy</a>
+      <a ng-click='dfilter = 2'>Medium</a>
+      <a ng-click='dfilter = 3'>Hard</a>
       <a>Search by Animal</a>
     </nav>
     <div class="search">
@@ -29,7 +29,7 @@
     </div>
 
     <!-- Questions go here -->
-    <div class='question-wrapper' ng-repeat='q in questions'>
+    <div class='question-wrapper' ng-repeat='q in questions | filter: {difficulty: dfilter}'>
       <h3>{{q.question}}</h3>
       <div ng-class='{"red Hard" : q.difficulty == 3, "yellow" : q.difficulty == 2, "green" : q.difficulty == 1}'>{{(q.difficulty == 3) ? "Hard" : (q.difficulty == 2) ? "Med" : "Easy" }}</div>
       <div class='gear'><img src="./styles/assets/gear.svg" alt=""></div>
