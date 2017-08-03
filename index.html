@@ -32,6 +32,7 @@
     <div class='question-wrapper' ng-repeat='q in questions'>
       <h3>{{q.question}}</h3>
       <div ng-class='{"red Hard" : q.difficulty == 3, "yellow" : q.difficulty == 2, "green" : q.difficulty == 1}'>{{(q.difficulty == 3) ? "Hard" : (q.difficulty == 2) ? "Med" : "Easy" }}</div>
+      <div class='gear'><img src="./styles/assets/gear.svg" alt=""></div>
       <ul>
         <li ng-model='option1' ng-class='{"red": toggle}' ng-click='checkAnswer(1, q.correct_answer)'>{{q.options[1]}}</li>
         <li ng-model='option2' ng-click='checkAnswer(2, q.correct_answer)'>{{q.options[2]}}</li>
