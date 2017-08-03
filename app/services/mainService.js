@@ -4,10 +4,10 @@ angular.module('trivia').service('mainSrv', function($http) {
     }
     this.checkAnswer = function(index, correct) {
         if (index === correct) {
-            console.log('good job');
+            return true;
         }
         else {
-            console.log('you suck');
+            return false;
         }
     }
 })
