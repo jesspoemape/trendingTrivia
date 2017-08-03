@@ -14,7 +14,7 @@
     <div></div>
     <h1>Trivia Trends</h1>
     <!-- add question button -->
-    <button ng-click=''><span>+</span> Add Question</button>
+    <button ng-click='addQuestion()'><span>+</span> Add Question</button>
   </header>
   <article>
     <nav>
@@ -32,7 +32,7 @@
     <div class='question-wrapper' ng-repeat='q in questions | filter: dfilter'>
       <h3>{{q.question}}</h3>
       <div ng-class='{"red Hard" : q.difficulty == 3, "yellow" : q.difficulty == 2, "green" : q.difficulty == 1}'>{{(q.difficulty == 3) ? "Hard" : (q.difficulty == 2) ? "Med" : "Easy" }}</div>
-      <div class='gear'><img src="./styles/assets/gear.svg" alt=""></div>
+      <div ng-click='openModal($index)' class='gear'><img src="./styles/assets/gear.svg" alt=""></div>
       <ul>
         <li ng-model='option1' ng-class='{"red": toggle}' ng-click='checkAnswer(1, q.correct_answer)'>{{q.options[1]}}</li>
         <li ng-model='option2' ng-click='checkAnswer(2, q.correct_answer)'>{{q.options[2]}}</li>
@@ -43,46 +43,46 @@
 
   </article>
 
-  <div class="modal">
+  <div class="modal" ng-show='modal'>
     <form>
-      <h4 class="close">X</h4>
-      <span>Question</span><input type="text" ng-model="<!-- Question -->">
-      <span>Animal it's about</span><input type="text" ng-model="<!-- Animal -->">
+      <h4 ng-click='closeModal()' class="close">X</h4>
+      <span>Question</span><input type="text" ng-model="modalInfo.question">
+      <span>Animal it's about</span><input type="text" ng-model="modalInfo.animal">
       <span>Difficulty</span>
       <div class="range">
-        <input type="range" min="1" max="3" ng-model="<!-- Difficulty -->">
+        <input type="range" min="1" max="3" ng-model="modalInfo.difficulty">
 
-        <h5>{{newQuestion.difficulty}}</h5>
+        <h5>{{modalInfo.difficulty}}</h5>
       </div>
       <h4>Options</h4>
       <div>
-        <input type="radio" ng-model="" value="1">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="modalOption1" value="1">
+        <input type="text" ng-model="modalInfo.options[1]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="2">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="modalOption2" value="2">
+        <input type="text" ng-model="modalInfo.options[2]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="3">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="modalOption3" value="3">
+        <input type="text" ng-model="modalInfo.options[3]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="4">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="modalOption4" value="4">
+        <input type="text" ng-model="modalInfo.options[4]">
       </div>
 
       <!--Add question buttons-->
-      <div class="buttons">
+      <div ng-show='modalInfo.question == ""' class="buttons">
         <button class="green">Save Question</button>
-        <button>Cancel</button>
+        <button ng-click='toggleModal()'>Cancel</button>
       </div>
 
       <!--Edit & Delete question buttons-->
-      <div class="buttons">
-        <button class="red">Delete Question</button>
+      <div ng-show='modalInfo.question !== ""' class="buttons">
+        <button ng-click='deleteQuestion($index)' class="red">Delete Question</button>
         <button class="green">Save Changes</button>
-        <button>Cancel</button>
+        <button ng-click='closeModal()'>Cancel</button>
       </div>
 
     </form>
