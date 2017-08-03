@@ -9,11 +9,12 @@
   <link rel="shortcut icon" href="/styles/assets/crownFavicon.png">
 </head>
 
-<body>
+<body ng-app='trivia' ng-controller='mainCtrl'>
   <header>
     <div></div>
     <h1>Trivia Trends</h1>
-    <button><span>+</span> Add Question</button>
+    <!-- add question button -->
+    <button ng-click=''><span>+</span> Add Question</button>
   </header>
   <article>
     <nav>
@@ -81,7 +82,9 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js" charset="utf-8"></script>
-  <script src="./app.js" charset="utf-8"></script>
+  <script src="./app/app.js" charset="utf-8"></script>
+  <script src='./app/services/mainService.js'></script>
+  <script src='./app/controllers/mainCtrl.js'></script>
 </body>
 
 </html>
