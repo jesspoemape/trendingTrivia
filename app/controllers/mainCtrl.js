@@ -1,11 +1,13 @@
 angular.module('trivia').controller('mainCtrl', function($scope, mainSrv) {
     $scope.modal = false;
     $scope.newQuestion = false;
+
     $scope.modalInfo = {
         question: '',
         animal: '',
         difficulty: 2,
-        options: {}
+        options: {},
+        correct_answer: 1
     }
 
     $scope.toggle = false;
@@ -24,12 +26,18 @@ angular.module('trivia').controller('mainCtrl', function($scope, mainSrv) {
         var currentQ = $scope.questions[$index];
         $scope.modal = true;
 
-        $scope.modalInfo = {
-            question: currentQ.question,
-            animal: currentQ.animal,
-            difficulty: currentQ.difficulty,
-            options: currentQ.options
+        if (currentQ) {
+                $scope.modalInfo = {
+                question: currentQ.question,
+                animal: currentQ.animal,
+                difficulty: currentQ.difficulty,
+                options: currentQ.options,
+                correct_answer: currentQ.correct_answer
+            }
         }
+        else {
+                $scope.newQuestion = true;
+            }
     }
     $scope.closeModal = function() {
         $scope.modalInfo = {
@@ -46,7 +54,17 @@ angular.module('trivia').controller('mainCtrl', function($scope, mainSrv) {
         mainSrv.deleteQuestion(id).then(() => $scope.modal = false);
     }
     $scope.addQuestion = function() {
-        $scope.modal = true;
-        $scope.newQuestion = true;
+        var correctA = ($scope.modalOption1) ? $scope.modalOption1 : ($scope.modalOption2 ? $scope.modalOption2 : ($scope.modalOption3 ? $scope.modalOption3 : $scope.modalOption4))
+        var newQuestion = {
+            question: $scope.modalInfo.question,
+            animal: $scope.modalInfo.animal,
+            difficulty: $scope.modalInfo.difficulty,
+            options: $scope.modalInfo.options,
+            correct_answer: correctA
+        }
+        mainSrv.addQuestion(newQuestion).then(data => {
+            $scope.questions = data;
+            $scope.modal = false;
+        });
     }
 })

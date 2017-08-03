@@ -14,4 +14,8 @@ angular.module('trivia').service('mainSrv', function($http) {
         return $http.delete(`https://practiceapi.devmountain.com/api/trivia/questions/${id}`)
         .then(res => getQuestions()).catch(console.error, 'Error');
     }
+    this.addQuestion = function(newQuestionObj) {
+        return $http.post('https://practiceapi.devmountain.com/api/trivia/questions', newQuestionObj)
+        .then(res => res.data).catch(console.error, 'Error');
+    }
 })

@@ -14,7 +14,7 @@
     <div></div>
     <h1>Trivia Trends</h1>
     <!-- add question button -->
-    <button ng-click='addQuestion()'><span>+</span> Add Question</button>
+    <button ng-click='openModal()'><span>+</span> Add Question</button>
   </header>
   <article>
     <nav>
@@ -73,13 +73,13 @@
       </div>
 
       <!--Add question buttons-->
-      <div ng-show='modalInfo.question == ""' class="buttons">
-        <button class="green">Save Question</button>
-        <button ng-click='toggleModal()'>Cancel</button>
+      <div ng-show='newQuestion == true' class="buttons">
+        <button ng-click='addQuestion()' class="green">Save Question</button>
+        <button ng-click='closeModal()'>Cancel</button>
       </div>
 
       <!--Edit & Delete question buttons-->
-      <div ng-show='modalInfo.question !== ""' class="buttons">
+      <div ng-show='newQuestion == false' class="buttons">
         <button ng-click='deleteQuestion($index)' class="red">Delete Question</button>
         <button class="green">Save Changes</button>
         <button ng-click='closeModal()'>Cancel</button>
