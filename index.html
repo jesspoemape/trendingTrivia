@@ -29,6 +29,17 @@
     </div>
 
     <!-- Questions go here -->
+    <div class='question-wrapper' ng-repeat='q in questions'>
+      <h3>{{q.question}}</h3>
+      <div class='gear'>{{q.difficulty}}</div>
+      <ul>
+        <li ng-click='checkAnswer(1, q.correct_answer)'>{{q.options[1]}}</li>
+        <li ng-click='checkAnswer(2, q.correct_answer)'>{{q.options[2]}}</li>
+        <li ng-click='checkAnswer(3, q.correct_answer)'>{{q.options[3]}}</li>
+        <li ng-click='checkAnswer(4, q.correct_answer)'>{{q.options[4]}}</li>
+      </ul>
+      {{q}}
+    </div>
 
   </article>
 
