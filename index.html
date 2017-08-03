@@ -19,17 +19,17 @@
   <article>
     <nav>
       <a ng-click='dfilter = ""'>All Questions</a>
-      <a ng-click='dfilter = 1'>Easy</a>
-      <a ng-click='dfilter = 2'>Medium</a>
-      <a ng-click='dfilter = 3'>Hard</a>
-      <a>Search by Animal</a>
+      <a ng-click='dfilter = {difficulty: 1}'>Easy</a>
+      <a ng-click='dfilter = {difficulty: 2}'>Medium</a>
+      <a ng-click='dfilter = {difficulty: 3}'>Hard</a>
+      <a ng-click='dfilter = searchText'>Search by Animal</a>
     </nav>
     <div class="search">
-      <input type="text" placeholder="Animal to search by">
+      <input ng-show='dfilter == searchText' type="text" placeholder="Animal to search by" ng-model='searchText.animal'>
     </div>
 
     <!-- Questions go here -->
-    <div class='question-wrapper' ng-repeat='q in questions | filter: {difficulty: dfilter}'>
+    <div class='question-wrapper' ng-repeat='q in questions | filter: dfilter'>
       <h3>{{q.question}}</h3>
       <div ng-class='{"red Hard" : q.difficulty == 3, "yellow" : q.difficulty == 2, "green" : q.difficulty == 1}'>{{(q.difficulty == 3) ? "Hard" : (q.difficulty == 2) ? "Med" : "Easy" }}</div>
       <div class='gear'><img src="./styles/assets/gear.svg" alt=""></div>
